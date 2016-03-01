@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.hotspot.mapper.OrderMapper">
+	<select id="getOrderList" resultType="com.fox.hotspot.entity.Order">
+		SELECT *
+		FROM service_order
+		<!-- 服务城市 -->
+		WHERE city = #{params.city}
+		<!-- 产品类型 -->
+		<if test="params.product_type_id!=null and params.product_type_id!=''">
+			AND product_type_id IN #{params.product_type_id}
+		</if>
+		<!-- 按预期开始时间 -->
+		<if test="params.expect_start_time!=null and params.expect_start_time!=''">
+			AND expect_start_time > #{params.expect_start_time}
+		</if>
+		<!-- 按预期结束时间 -->
+		<if test="params.expect_end_time!=null and params.expect_end_time!=''">
+			AND #{params.expect_end_time} > expect_end_time
+		</if>
+		ORDER BY end_time DESC
+	</select>
+</mapper>
