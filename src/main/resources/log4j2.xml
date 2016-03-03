@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="logfile" fileName="/var/log/tomcat/hotspot.log"
+                     filePattern="/var/log/tomcat/hotspot.log.%d{yyyy-MM-dd}-%i">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="10MB"/>
+        </RollingFile>
+    </appenders>
+    <loggers>
+	    <!-- 3rdparty Loggers -->
+	    <logger name="org.springframework.core" level="info">
+	    </logger>
+	    <logger name="org.springframework.beans" level="info">
+	    </logger>
+	    <logger name="org.springframework.context" level="info">
+	    </logger>
+	    <logger name="org.springframework.web" level="info">
+    	</logger>
+    	<logger name="org.springframework.amqp" level="info">
+    	</logger>
+        <!--我们只让这个logger输出trace信息，其他的都是error级别-->
+        <!--
+        additivity开启的话，由于这个logger也是满足root的，所以会被打印两遍。
+        不过root logger 的level是error，为什么Bar 里面的trace信息也被打印两遍呢
+        -->
+        <root level="INFO">
+            <appender-ref ref="logfile"/>
+        </root>
+    </loggers>
+</configuration>
