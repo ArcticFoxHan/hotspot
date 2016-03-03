@@ -1,6 +1,7 @@
 package com.fox.hotspot.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -27,16 +28,19 @@ public class OrderController {
 	private OrderService orderService;
 
 	/*
-	 * @brief 获取订单列表
+	 * @brief  获取订单列表
+	 * @param  String city 城市
 	 */
 	@RequestMapping(value = "/getOrderList", method = RequestMethod.GET)
-	public ModelAndView submitApplication(
-			@RequestParam(value = "city", defaultValue = "bj") String city) {
+	public ModelAndView getOrderList(
+			@RequestParam(value = "city", defaultValue = "bj", required = false) String city) {
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("city", city);
+			List orderList = orderService.getOrderList(params);
 			MappingJackson2JsonView view = new MappingJackson2JsonView();
 			view.setAttributesMap(Utils.getResultMap(Common.RET_CODE_SUCCESS,
-					Common.RET_MSG_SUCCESS));
+					Common.RET_MSG_SUCCESS, orderList));
 			return new ModelAndView(view);
 		} catch (IllegalArgumentException e) {
 			logger.error(e.getMessage());

@@ -19,6 +19,9 @@
 		<apache.commons.math.version>3.5</apache.commons.math.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<apache.log4j.version>1.2.17</apache.log4j.version>
+		<sitemesh.version>2.4.2</sitemesh.version>
+		<maven.plugin.surefire.version>2.6</maven.plugin.surefire.version>
+		<maven.plugin.install.version>2.5</maven.plugin.install.version>
 	</properties>
 
 	<dependencies>
@@ -94,19 +97,26 @@
 			<version>${apache.log4j.version}</version>
 		</dependency>
 		<!-- Logger End -->
-    </dependencies>
+
+		<!-- Sitemesh -->
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>${sitemesh.version}</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/webapp</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/webapp</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<!-- compiler插件, 设定JDK版本 -->
 			<plugin>
@@ -120,21 +130,21 @@
 				</configuration>
 			</plugin>
 
-			<!-- war打包插件, 设定war包名称不带版本号 , 例外test数据-->
+			<!-- war打包插件, 设定war包名称不带版本号 , 例外test数据 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
 					<webResources>
-			            <resource>
-			                <filtering>true</filtering>
-			                <directory>src/main/webapp</directory>
-			                <includes>
-			                    <include>**/web.xml</include>
-			                </includes>
-			            </resource>
-			        </webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+					</webResources>
 					<warName>${project.name}-${project.version}</warName>
 					<warSourceExcludes>src/main/test/**</warSourceExcludes>
 				</configuration>
@@ -142,20 +152,20 @@
 
 			<!-- 打包跳过测试 -->
 			<plugin>
-			    <artifactId>maven-surefire-plugin</artifactId>
-			    <version>2.6</version>
-			    <configuration>
-			        <skip>true</skip>
-			    </configuration>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.plugin.surefire.version}</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
 			</plugin>
-			
+
 			<!-- install插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
-				<version>2.5</version>
+				<version>${maven.plugin.install.version}</version>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 

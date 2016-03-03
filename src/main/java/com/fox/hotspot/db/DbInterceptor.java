@@ -7,7 +7,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.fox.hotspot.common.DB;
 
 /*
  * @Order(1) 代表类的加载顺序，0是第一个加载
@@ -20,7 +19,7 @@ public class DbInterceptor {
 	private static org.slf4j.Logger log = LoggerFactory
 			.getLogger(DbInterceptor.class);
 
-	@Before("execution(* com.yongche.account_monitor.service..*.*(..))")
+	@Before("execution(* com.fox.hotspot.service..*.*(..))")
 	public void dynamicSetDataSoruce(JoinPoint joinPoint) throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("go into DbInterceptor..............");
