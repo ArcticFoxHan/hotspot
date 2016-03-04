@@ -1,3 +1,6 @@
+/*
+ * @brief 订单入口
+ */
 package com.fox.hotspot.controller;
 
 import java.util.HashMap;
