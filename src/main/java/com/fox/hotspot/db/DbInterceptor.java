@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Order(0)
 public class DbInterceptor {
+
 	private static org.slf4j.Logger log = LoggerFactory
 			.getLogger(DbInterceptor.class);
 
@@ -39,5 +40,4 @@ public class DbInterceptor {
 			DataSourceContextHolder.clearCustomerType();
 		}
 	}
-
 }

@@ -28,13 +28,14 @@ public class OrderController {
 	private OrderService orderService;
 
 	/*
-	 * @brief  获取订单列表
-	 * @param  String city 城市
+	 * @brief 获取订单列表
+	 * @param String city 城市
 	 */
 	@RequestMapping(value = "/getOrderList", method = RequestMethod.GET)
 	public ModelAndView getOrderList(
 			@RequestParam(value = "city", defaultValue = "bj", required = false) String city) {
 		try {
+			logger.error("ALREADY IN THE GETORDERLIST FUNCTION");
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("city", city);
 			List orderList = orderService.getOrderList(params);
