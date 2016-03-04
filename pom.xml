@@ -10,19 +10,22 @@
 
 	<properties>
 		<!-- Version Of Dependencies -->
+		<maven.plugin.surefire.version>2.6</maven.plugin.surefire.version>
+		<maven.plugin.install.version>2.5</maven.plugin.install.version>
 		<org.aspectj.version>1.7.3</org.aspectj.version>
 		<spring.version>4.2.1.RELEASE</spring.version>
 		<mybatis.version>3.3.0</mybatis.version>
-		<jackson.version>2.6.2</jackson.version>
 		<mybatis.spring.version>1.2.2</mybatis.spring.version>
+		<jackson.version>2.6.2</jackson.version>
 		<jedis.version>2.7.3</jedis.version>
 		<tomcat.jdbc.version>7.0.65</tomcat.jdbc.version>
 		<apache.commons.math.version>3.5</apache.commons.math.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<apache.log4j.version>1.2.17</apache.log4j.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
-		<maven.plugin.surefire.version>2.6</maven.plugin.surefire.version>
-		<maven.plugin.install.version>2.5</maven.plugin.install.version>
+		<javax.jstl.version>1.2</javax.jstl.version>
+		<javax.servlet.version>3.1.0</javax.servlet.version>
+		<javax.jsp.version>2.2</javax.jsp.version>
 	</properties>
 
 	<dependencies>
@@ -76,7 +79,15 @@
 			<artifactId>tomcat-jdbc</artifactId>
 			<version>${tomcat.jdbc.version}</version>
 		</dependency>
-        
+		<!-- Mysql.JDBC -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
+		</dependency>
+
+
+		<!-- Fastxml.Jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -92,19 +103,20 @@
 			<artifactId>jackson-module-jaxb-annotations</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+
 		<!-- Cluster -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-            <version>3.6</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6</version>
+		</dependency>
 		<!-- Logger Start -->
-        <!-- slf4J -->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
-        </dependency>
+		<!-- slf4J -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -116,13 +128,13 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${apache.log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>runtime</scope>
-        </dependency>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 		<!-- Logger End -->
 
 		<!-- Sitemesh -->
@@ -131,6 +143,27 @@
 			<artifactId>sitemesh</artifactId>
 			<version>${sitemesh.version}</version>
 		</dependency>
+
+		<!-- JavaX.Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet.version}</version>
+		</dependency>
+		<!-- JavaX.JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${javax.jstl.version}</version>
+		</dependency>
+		<!-- JavaX.Jsp -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${javax.jsp.version}</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -168,26 +201,26 @@
 				</exclusions>
 			</dependency>
 		</dependencies>
-    </dependencyManagement>
+	</dependencyManagement>
 
-	<profiles>  
-        <profile>  
-            <id>production</id>  
-            <properties>  
-                <profiles.activation>production</profiles.activation>  
-            </properties>
-        </profile>
-        <profile>  
-            <id>development</id> 
-            <activation>  
-                <activeByDefault>true</activeByDefault>  
-            </activation> 
-            <properties>  
-                <profiles.activation>development</profiles.activation>
-                <profiles.deployUrl>http://127.0.0.1:8088/manager/text</profiles.deployUrl>
-            </properties>
-        </profile>       
-    </profiles>
+	<profiles>
+		<profile>
+			<id>production</id>
+			<properties>
+				<profiles.activation>production</profiles.activation>
+			</properties>
+		</profile>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<profiles.activation>development</profiles.activation>
+				<profiles.deployUrl>http://127.0.0.1:8088/manager/text</profiles.deployUrl>
+			</properties>
+		</profile>
+	</profiles>
 	<build>
 		<resources>
 			<resource>
